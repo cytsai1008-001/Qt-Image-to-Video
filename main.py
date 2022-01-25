@@ -17,7 +17,10 @@ from Main_Window import Ui_Form
 
 # supported_color_space = ['libx264 (最佳品質)', 'yuv420p (兼容性)']
 
-async def ffmpeg_process(resolution_w, resolution_h, frame_rate, input_dir, output_dir, file_format, fps):
+
+async def ffmpeg_process(
+    resolution_w, resolution_h, frame_rate, input_dir, output_dir, file_format, fps
+):
     if resolution_w and resolution_h:
         process_log = subprocess.Popen(
             [
@@ -159,17 +162,17 @@ class MainWindow(QtWidgets.QMainWindow):
                 QtWidgets.QMessageBox.information(self, "警告", "解析度(寬)與(長)請輸入大於0的數字")
                 return False
             if int(resolution_w) != float(resolution_w) or int(resolution_h) != float(
-                    resolution_h
+                resolution_h
             ):
                 QtWidgets.QMessageBox.information(self, "警告", "解析度(寬)與(長)請輸入整數")
                 return False
         if os.path.isfile(output_dir) is True:
             if QtWidgets.QMessageBox.Yes == QtWidgets.QMessageBox.warning(
-                    self,
-                    "警告",
-                    "輸出檔案已存在，是否覆寫",
-                    QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
-                    QtWidgets.QMessageBox.Yes,
+                self,
+                "警告",
+                "輸出檔案已存在，是否覆寫",
+                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+                QtWidgets.QMessageBox.Yes,
             ):
                 print("Overwrite")
             else:
@@ -180,7 +183,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.StartButton.setEnabled(False)
         self.ui.StartButton.setText("處理中...")
         try:
-            process_log_text = asyncio.run(ffmpeg_process(resolution_w, resolution_h, frame_rate, input_dir, output_dir, file_format, fps))
+            process_log_text = asyncio.run(
+                ffmpeg_process(
+                    resolution_w,
+                    resolution_h,
+                    frame_rate,
+                    input_dir,
+                    output_dir,
+                    file_format,
+                    fps,
+                )
+            )
             print(process_log_text)
             self.ui.ErrorLog.setText(process_log_text)
             self.ui.ErrorLog.moveCursor(QtGui.QTextCursor.End)
@@ -195,7 +208,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 os.mkdir("ErrorLog")
             date = datetime.datetime.now().strftime("%Y-%m-%d %H-%M-%S")
             with open(
-                    "ErrorLog/ErrorLog_{}.txt".format(date), "w", encoding="utf-8"
+                "ErrorLog/ErrorLog_{}.txt".format(date), "w", encoding="utf-8"
             ) as f:
                 f.write(error_traceback)
             self.ui.ErrorLog.setText(error_traceback)
