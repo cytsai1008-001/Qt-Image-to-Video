@@ -138,3 +138,4 @@ dmypy.json
 .pyre/
 /Image to Video.zip
 /main.exe
+runner.exe
