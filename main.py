@@ -1,6 +1,5 @@
 import datetime
 import os
-import subprocess
 import sys
 import time
 import traceback
@@ -29,6 +28,7 @@ def check_pyinstaller():
         return False
 
 
+"""
 async def ffmpeg_process_rework(
     resolution_w, resolution_h, frame_rate, input_dir, output_dir, file_format, fps
 ):
@@ -72,6 +72,69 @@ async def ffmpeg_process_rework(
             shell=True,
         )
     return process.communicate()[1].decode("utf-8")
+"""
+
+
+def ffmpeg_process_qprocess(
+        self,
+        resolution_w,
+        resolution_h,
+        frame_rate,
+        input_dir,
+        output_dir,
+        file_format,
+        fps,
+):
+    log_location = f"ErrorLog/ffmpeg_{date}.txt"
+    if not check_pyinstaller():
+        self.ui.StartButton.setEnabled(False)
+        self.ui.StartButton.setText("處理中...")
+        self.p = QProcess()
+        self.p.setProcessChannelMode(QProcess.ForwardedChannels)
+        self.p.setStandardOutputFile(log_location)
+        self.p.readyReadStandardOutput.connect(self.handle_stdout)
+        self.p.readyReadStandardError.connect(self.handle_stderr)
+        # self.p.readyRead.connect(self.ui.ErrorLog.setText)
+        self.p.finished.connect(self.process_finished)
+        self.p.start(
+            "python",
+            [
+                "runner.py",
+                "--input",
+                input_dir,
+                "--output",
+                output_dir,
+                "--fps",
+                fps,
+                "--time",
+                f"{frame_rate}",
+                "--format",
+                file_format,
+            ],
+        )
+    else:
+        self.p = QProcess()
+        self.p.setProcessChannelMode(QProcess.ForwardedChannels)
+        self.p.setStandardOutputFile(log_location)
+        self.p.readyReadStandardOutput.connect(self.handle_stdout)
+        self.p.readyReadStandardError.connect(self.handle_stderr)
+        # self.p.readyReadStandardOutput.connect(self.ui.ErrorLog.setText)
+        self.p.finished.connect(self.process_finished)
+        self.p.start(
+            "runner.exe",
+            [
+                "--input",
+                input_dir,
+                "--output",
+                output_dir,
+                "--fps",
+                fps,
+                "--time",
+                f"{frame_rate}",
+                "--format",
+                file_format,
+            ],
+        )
 
 
 """
@@ -125,58 +188,6 @@ async def ffmpeg_process(
 """
 
 
-def ffmpeg_process_qprocess(
-    self,
-    resolution_w,
-    resolution_h,
-    frame_rate,
-    input_dir,
-    output_dir,
-    file_format,
-    fps,
-):
-    log_location = f"ErrorLog/ffmpeg_{date}.txt"
-    if not check_pyinstaller():
-        self.p = QProcess()
-        self.p.setProcessChannelMode(QProcess.ForwardedChannels)
-        self.p.setStandardOutputFile(log_location)
-        self.p.start(
-            "python",
-            [
-                "runner.py",
-                "--input",
-                input_dir,
-                "--output",
-                output_dir,
-                "--fps",
-                fps,
-                "--time",
-                f"{frame_rate}",
-                "--format",
-                file_format,
-            ],
-        )
-    else:
-        self.p = QProcess()
-        self.p.setProcessChannelMode(QProcess.ForwardedChannels)
-        self.p.setStandardOutputFile(log_location)
-        self.p.start(
-            "runner.exe",
-            [
-                "--input",
-                input_dir,
-                "--output",
-                output_dir,
-                "--fps",
-                fps,
-                "--time",
-                f"{frame_rate}",
-                "--format",
-                file_format,
-            ],
-        )
-
-
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
@@ -206,6 +217,25 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.OutputButton.clicked.connect(self.open_file)
         self.ui.StartButton.clicked.connect(self.start)
         self.ui.Progress.setEnabled(False)
+
+    def message(self, s):
+        self.ui.ErrorLog.append(s)
+
+    def process_finished(self):
+        # self.ui.StartButton.setEnabled(True)
+        # self.ui.StartButton.setText("開始")
+        # self.ui.Progress.setValue(100)
+        pass
+
+    def handle_stderr(self):
+        data = self.p.readAllStandardError()
+        stderr = bytes(data).decode("utf8")
+        self.message(stderr)
+
+    def handle_stdout(self):
+        data = self.p.readAllStandardOutput()
+        stdout = bytes(data).decode("utf8")
+        self.message(stdout)
 
     def open_folder(self):
         input_dir = QtWidgets.QFileDialog.getExistingDirectory(
@@ -282,11 +312,11 @@ class MainWindow(QtWidgets.QMainWindow):
         """
         if os.path.isfile(output_dir) is True:
             if QtWidgets.QMessageBox.Yes == QtWidgets.QMessageBox.warning(
-                self,
-                "警告",
-                "輸出檔案已存在，是否覆寫",
-                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
-                QtWidgets.QMessageBox.Yes,
+                    self,
+                    "警告",
+                    "輸出檔案已存在，是否覆寫",
+                    QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+                    QtWidgets.QMessageBox.Yes,
             ):
                 print("Overwrite")
             else:
@@ -294,8 +324,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 return False
 
         print("Start")
-        self.ui.StartButton.setEnabled(False)
-        self.ui.StartButton.setText("處理中...")
+
         try:
             ffmpeg_process_qprocess(
                 self,
@@ -323,7 +352,7 @@ class MainWindow(QtWidgets.QMainWindow):
             if not os.path.isdir("ErrorLog"):
                 os.mkdir("ErrorLog")
             with open(
-                "ErrorLog/ErrorLog_{}.txt".format(date), "w", encoding="utf-8"
+                    "ErrorLog/ErrorLog_{}.txt".format(date), "w", encoding="utf-8"
             ) as f:
                 f.write(error_traceback)
             self.ui.ErrorLog.setText(error_traceback)
