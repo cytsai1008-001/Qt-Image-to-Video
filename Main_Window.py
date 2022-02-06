@@ -74,7 +74,7 @@ class Ui_Form(object):
         self.StartButton.setGeometry(QRect(544, 20, 111, 121))
         font1 = QFont()
         font1.setFamily(u"Noto Sans TC")
-        font1.setPointSize(16)
+        font1.setPointSize(23)
         font1.setStyleStrategy(QFont.PreferAntialias)
         self.StartButton.setFont(font1)
         self.Resolution_H = QLineEdit(self.SettingGroup)
@@ -90,6 +90,9 @@ class Ui_Form(object):
         self.FileFormat = QLineEdit(self.SettingGroup)
         self.FileFormat.setObjectName(u"FileFormat")
         self.FileFormat.setGeometry(QRect(380, 40, 113, 20))
+        self.label_2 = QLabel(self.SettingGroup)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(280, 110, 231, 21))
         self.line.raise_()
         self.FPS_Text.raise_()
         self.FPS.raise_()
@@ -105,6 +108,7 @@ class Ui_Form(object):
         self.Resolution_X.raise_()
         self.FileFormat_Text.raise_()
         self.FileFormat.raise_()
+        self.label_2.raise_()
         self.FileGroup = QGroupBox(Form)
         self.FileGroup.setObjectName(u"FileGroup")
         self.FileGroup.setGeometry(QRect(10, 0, 671, 131))
@@ -166,6 +170,13 @@ class Ui_Form(object):
         )
         self.FileFormat.setInputMask("")
         self.FileFormat.setText("")
+        self.label_2.setText(
+            QCoreApplication.translate(
+                "Form",
+                u"\u70ba\u907f\u514d\u932f\u8aa4\uff0c\u76ee\u524d\u66ab\u4e0d\u652f\u63f4\u6b64\u529f\u80fd",
+                None,
+            )
+        )
         self.FileGroup.setTitle(
             QCoreApplication.translate("Form", u"\u6a94\u6848", None)
         )
@@ -181,7 +192,9 @@ class Ui_Form(object):
         self.label.setText(
             QCoreApplication.translate(
                 "Form",
-                u'<html><head/><body><p>\u672c\u8edf\u9ad4\u7531<a href="http://github.com/cytsai1008"><span style=" text-decoration: underline; color:#0000ff;">CYTsai</span></a>\u88fd\u4f5c\uff0c\u672a\u7d93\u8a31\u53ef\u4e0d\u5f97\u64c5\u81ea\u5206\u4eab\u4ed8\u8cbb\u7248\uff0c\u672c\u4eba\u4e0d\u5c0d\u81ea\u884c\u7de8\u8b6f\u7248\u8ca0\u8cac</p></body></html>',
+                u'<html><head/><body><p>\u672c\u8edf\u9ad4\u7531<a href="http://github.com/cytsai1008"><span\n'
+                '                 style=" text-decoration: underline; color:#0000ff;">CYTsai</span></a>\u88fd\u4f5c\uff0c\u672a\u7d93\u8a31\u53ef\u4e0d\u5f97\u64c5\u81ea\u5206\u4eab\u4ed8\u8cbb\u7248\uff0c\u672c\u4eba\u4e0d\u5c0d\u81ea\u884c\u7de8\u8b6f\u7248\u8ca0\u8cac</p></body></html>\n'
+                "             ",
                 None,
             )
         )

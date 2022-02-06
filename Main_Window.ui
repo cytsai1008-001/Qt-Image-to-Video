@@ -249,6 +249,19 @@
      <string/>
     </property>
    </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>110</y>
+      <width>231</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>為避免錯誤，目前暫不支援此功能</string>
+    </property>
+   </widget>
    <zorder>line</zorder>
    <zorder>FPS_Text</zorder>
    <zorder>FPS</zorder>
@@ -264,6 +277,7 @@
    <zorder>Resolution_X</zorder>
    <zorder>FileFormat_Text</zorder>
    <zorder>FileFormat</zorder>
+   <zorder>label_2</zorder>
   </widget>
   <widget class="QGroupBox" name="FileGroup">
    <property name="geometry">
@@ -350,35 +364,35 @@
    <property name="title">
     <string>輸出紀錄</string>
    </property>
-      <widget class="QTextBrowser" name="ErrorLog">
-          <property name="geometry">
-              <rect>
-                  <x>10</x>
-                  <y>20</y>
-                  <width>651</width>
-                  <height>251</height>
-              </rect>
-          </property>
-      </widget>
+   <widget class="QTextBrowser" name="ErrorLog">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>651</width>
+      <height>251</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
-     <widget class="QLabel" name="label">
-         <property name="geometry">
-             <rect>
-                 <x>10</x>
-                 <y>570</y>
-                 <width>671</width>
-                 <height>21</height>
-             </rect>
-         </property>
-         <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;本軟體由&lt;a href=&quot;http://github.com/cytsai1008&quot;&gt;&lt;span
-                 style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;CYTsai&lt;/span&gt;&lt;/a&gt;製作，未經許可不得擅自分享付費版，本人不對自行編譯版負責&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-             </string>
-         </property>
-         <property name="alignment">
-             <set>Qt::AlignCenter</set>
-         </property>
-     </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>570</y>
+     <width>671</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;本軟體由&lt;a href=&quot;http://github.com/cytsai1008&quot;&gt;&lt;span
+     style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;CYTsai&lt;/span&gt;&lt;/a&gt;製作，未經許可不得擅自分享付費版，本人不對自行編譯版負責&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+    </string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
