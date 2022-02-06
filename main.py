@@ -72,6 +72,12 @@ class MainWindow(QtWidgets.QMainWindow):
         QFontDatabase.addApplicationFont("NotoSansTC-Regular.otf")
         self.ui.Resolution_W.setEnabled(False)
         self.ui.Resolution_H.setEnabled(False)
+        self.ui.label.setText(
+            "<html><head/><body>"
+            '<p>本軟體由<a href="http://github.com/cytsai1008">'
+            '<span style=" text-decoration: underline; color:#0000ff;">CYTsai</span></a>'
+            "製作，您目前正在使用試用版，若喜歡請購買正式版</p></body></html>"
+        )
         self.ui.InputButton.clicked.connect(self.open_folder)
         self.ui.OutputButton.clicked.connect(self.open_file)
         self.ui.StartButton.clicked.connect(self.start)
@@ -158,6 +164,13 @@ class MainWindow(QtWidgets.QMainWindow):
                 return False
 
         print("Start")
+
+        if int(frame_rate) > 5 or int(fps) > 30:
+            QtWidgets.QMessageBox.information(
+                self, "錯誤", "請購買完整版以解鎖60FPS與每張大於5秒", QtWidgets.QMessageBox.Close
+            )
+            self.process_finished()
+            return False
 
         try:
             ffmpeg_process_rework(
