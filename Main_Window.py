@@ -25,13 +25,6 @@ class Ui_Form(object):
         font.setPointSize(10)
         font.setStyleStrategy(QFont.PreferAntialias)
         Form.setFont(font)
-        self.Progress = QProgressBar(Form)
-        self.Progress.setObjectName(u"Progress")
-        self.Progress.setGeometry(QRect(10, 570, 671, 21))
-        self.Progress.setValue(0)
-        self.Progress.setOrientation(Qt.Horizontal)
-        self.Progress.setInvertedAppearance(False)
-        self.Progress.setTextDirection(QProgressBar.TopToBottom)
         self.SettingGroup = QGroupBox(Form)
         self.SettingGroup.setObjectName(u"SettingGroup")
         self.SettingGroup.setGeometry(QRect(10, 130, 671, 151))
@@ -81,7 +74,7 @@ class Ui_Form(object):
         self.StartButton.setGeometry(QRect(544, 20, 111, 121))
         font1 = QFont()
         font1.setFamily(u"Noto Sans TC")
-        font1.setPointSize(15)
+        font1.setPointSize(16)
         font1.setStyleStrategy(QFont.PreferAntialias)
         self.StartButton.setFont(font1)
         self.Resolution_H = QLineEdit(self.SettingGroup)
@@ -139,6 +132,10 @@ class Ui_Form(object):
         self.ErrorLog = QTextBrowser(self.groupBox)
         self.ErrorLog.setObjectName(u"ErrorLog")
         self.ErrorLog.setGeometry(QRect(10, 20, 651, 251))
+        self.label = QLabel(Form)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(10, 570, 671, 21))
+        self.label.setAlignment(Qt.AlignCenter)
 
         self.retranslateUi(Form)
 
@@ -180,6 +177,13 @@ class Ui_Form(object):
         )
         self.groupBox.setTitle(
             QCoreApplication.translate("Form", u"\u8f38\u51fa\u7d00\u9304", None)
+        )
+        self.label.setText(
+            QCoreApplication.translate(
+                "Form",
+                u'<html><head/><body><p>\u672c\u8edf\u9ad4\u7531<a href="http://github.com/cytsai1008"><span style=" text-decoration: underline; color:#0000ff;">CYTsai</span></a>\u88fd\u4f5c\uff0c\u672a\u7d93\u8a31\u53ef\u4e0d\u5f97\u64c5\u81ea\u5206\u4eab\u4ed8\u8cbb\u7248\uff0c\u672c\u4eba\u4e0d\u5c0d\u81ea\u884c\u7de8\u8b6f\u7248\u8ca0\u8cac</p></body></html>',
+                None,
+            )
         )
 
     # retranslateUi

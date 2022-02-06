@@ -1,19 +1,18 @@
 # from PySide2.QtGui import QFontDatabase
+import argparse
 import os
-import traceback
-
 # from better_ffmpeg_progress import FfmpegProcess
 # import os
 # import sys
 import subprocess
-import argparse
+import traceback
 from datetime import datetime
-
-# from PySide2 import QtWidgets
 
 # from PySide2.QtGui import QFontDatabase
 # from PySide2.QtWidgets import QProgressDialog
 from PySide2 import QtWidgets
+
+# from PySide2 import QtWidgets
 
 TEMP = os.environ.get("TEMP")
 TEMP = TEMP.replace("\\", "/")
@@ -50,7 +49,8 @@ try:
             "-vf",
             f"fps={fps}",
             output_file,
-        ], creationflags=subprocess.CREATE_NEW_CONSOLE
+        ],
+        creationflags=subprocess.CREATE_NEW_CONSOLE,
     )
 except Exception:
     date = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -60,12 +60,15 @@ except Exception:
     with open(f"ErrorLog/traceback_{date}.txt", "w") as f:
         f.write(traceback_data)
 
-
     class MainWindow(QtWidgets.QMainWindow):
         def __init__(self, parent=None):
             super(MainWindow, self).__init__(parent)
-            QtWidgets.QMessageBox.critical(self, "Error", "Something went wrong.\n"
-                                                          "Please go to \"ErrorLog\" folder and report to developer.")
+            QtWidgets.QMessageBox.critical(
+                self,
+                "Error",
+                "Something went wrong.\n"
+                'Please go to "ErrorLog" folder and report to developer.',
+            )
 
     app = QtWidgets.QApplication()
     window = MainWindow()
