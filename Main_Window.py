@@ -74,7 +74,7 @@ class Ui_Form(object):
         self.StartButton.setGeometry(QRect(544, 20, 111, 121))
         font1 = QFont()
         font1.setFamily(u"Noto Sans TC")
-        font1.setPointSize(23)
+        font1.setPointSize(16)
         font1.setStyleStrategy(QFont.PreferAntialias)
         self.StartButton.setFont(font1)
         self.Resolution_H = QLineEdit(self.SettingGroup)
