@@ -5,10 +5,11 @@ import sys
 import time
 import traceback
 
-from PySide2 import QtWidgets, QtCore
-from PySide2.QtGui import QFontDatabase
+from PySide2 import QtWidgets, QtCore, QtGui
 
 from Main_Window import Ui_Form
+
+# from PySide2.QtGui import QFontDatabase
 
 date = datetime.datetime.now().strftime("%Y-%m-%d %H-%M-%S")
 
@@ -69,7 +70,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
 
-        QFontDatabase.addApplicationFont("NotoSansTC-Regular.otf")
+        QtGui.QFontDatabase.addApplicationFont("NotoSansTC-Regular.otf")
         self.ui.Resolution_W.setEnabled(False)
         self.ui.Resolution_H.setEnabled(False)
         self.ui.InputButton.clicked.connect(self.open_folder)
