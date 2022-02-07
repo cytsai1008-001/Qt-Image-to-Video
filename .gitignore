@@ -140,3 +140,4 @@ dmypy.json
 /main.exe
 runner.exe
 0.5-no-ffmpeg.zip
+/ffplay.exe
