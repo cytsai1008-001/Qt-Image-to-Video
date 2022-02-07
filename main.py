@@ -26,7 +26,14 @@ def check_pyinstaller():
 
 
 def ffmpeg_process_rework(
-        resolution_w, resolution_h, frame_rate, input_dir, output_dir, file_format, fps
+        resolution_w,
+        resolution_h,
+        frame_rate,
+        input_dir,
+        output_dir,
+        file_format,
+        fps,
+        preview,
 ):
     if not check_pyinstaller():
         subprocess.Popen(
@@ -43,6 +50,8 @@ def ffmpeg_process_rework(
                 f"{frame_rate}",
                 "--format",
                 file_format,
+                "--preview",
+                preview,
             ]
         )
     else:
@@ -59,6 +68,8 @@ def ffmpeg_process_rework(
                 f"{frame_rate}",
                 "--format",
                 file_format,
+                "--preview",
+                preview,
             ]
         )
 
@@ -101,7 +112,7 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             print("No File Selected")
 
-    def start(self):
+    def start(self):  # sourcery skip: assign-if-exp, boolean-if-exp-identity
         self.ui.StartButton.setEnabled(False)
         self.ui.StartButton.setText("處理中...")
 
@@ -160,6 +171,16 @@ class MainWindow(QtWidgets.QMainWindow):
 
         print("Start")
 
+        if QtWidgets.QMessageBox.Yes == QtWidgets.QMessageBox.information(
+                self,
+                "影片預覽",
+                "是否於完成後打開影片",
+                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+                QtWidgets.QMessageBox.Yes,
+        ):
+            preview = True
+        else:
+            preview = False
         try:
             ffmpeg_process_rework(
                 resolution_w,
@@ -169,8 +190,9 @@ class MainWindow(QtWidgets.QMainWindow):
                 output_dir,
                 file_format,
                 fps,
+                str(preview),
             )
-            time.sleep(1)
+            time.sleep(0.5)
 
         except:
             self.ui.ErrorLog.setText("處理失敗")
