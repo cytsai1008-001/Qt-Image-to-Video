@@ -101,12 +101,12 @@ except Exception:
 
 else:
     if os.path.exists("ffmpeg.exe") and preview and os.path.exists(output_file):
-        time.sleep(1)
+        time.sleep(0.5)
         while True:
             if not checkIfProcessRunning("ffmpeg.exe"):
                 break
             else:
-                time.sleep(1)
+                time.sleep(0.5)
         subprocess.Popen(
             [
                 "ffplay.exe",
